@@ -1,102 +1,102 @@
 # ANUI — AI-Native UI Skill
 
-> 本 Skill 属于 [ai-native-ui-skill](../../README.md) 合集，位于 `skills/anui/`。
+> This skill is part of the [ai-native-ui-skill](../../README.md) collection and lives in `skills/anui/`.
 
-**简体中文** · [English](README.en.md)
+**English** · [简体中文](README.zh-CN.md)
 
-> 给 Codex 用的 AI 应用界面设计 Skill：**黑白单色 + 弹簧动效 + 中文排版 + AI 专属组件 + 自检脚本**。
+> An AI-app interface design skill for Codex: **monochrome themes + spring motion + Chinese typography + AI-native components + self-check scripts**.
 
 <p align="center">
-  <img src="docs/media/hero.gif" alt="ANUI demo：Motion Lab 与 AI 动效（OLED 主题）" width="720">
+  <img src="docs/media/hero.gif" alt="ANUI demo: Motion Lab and AI motion (OLED theme)" width="720">
 </p>
 
-**在线演示**：https://yamyyyyy.github.io/ai-native-ui-skill/skills/anui/demo/ （部署后可用）；完整录屏：[`docs/media/preview.mp4`](docs/media/preview.mp4)
+[Live demo](https://raylee-ai.github.io/ai-native-ui-skill/skills/anui/demo/?lang=en) · Full recording: [`docs/media/preview.mp4`](docs/media/preview.mp4)
 
-| OLED（深色默认） | 高对比 HC（浅色默认） |
+| OLED (dark default) | High-contrast HC (light default) |
 |---|---|
 | ![OLED](docs/media/shot-top-oled.png) | ![HC](docs/media/shot-top-hc.png) |
 
-![AI 专属动效（OLED）](docs/media/shot-ai-oled.png)
+![AI-specific motion (OLED)](docs/media/shot-ai-oled.png)
 
-## 它是什么
+## What it is
 
-ANUI 是一套写给编码 Agent 读的设计系统。装进 Codex 后，Agent 在做聊天面板、Agent 工作台、工具调用流、审批卡时，会按这里的令牌、动效和工艺规则来实现，并用脚本自检。
+ANUI is a design system written for coding agents to read. Once installed in Codex, the agent uses its tokens, motion and craft rules when it builds chat panels, agent workspaces, tool-call streams and approval cards, then checks its own work with scripts.
 
-- **OLED / HC 单色**：浅色默认纯白高对比 `hc`，深色默认纯黑 `oled`，另有 `oled-hc`、`paper`、`white`、`dark`。颜色不承担层级，唯一的彩色是功能红；强调靠反色。对比度按 APCA + WCAG 反推并脚本校验。
-- **弹簧动效**：8 个预设（press / snap / glide / settle / pop / sheet / fling / breathe），用 Apple 式 duration + bounce 定义，闭式求解并生成 CSS `linear()`；可打断、进出不对称、尊重减少动效。
-- **中文排版**：Geist + ANUI Sans SC（Noto Sans SC 子集）+ Geist Mono；`text-autospace`、`text-spacing-trim`、`line-break: strict`，深色/高对比字重补偿。
-- **AI-native 组件**：思考轨迹、流式回答、工具调用 chip、审批卡、任务行、Prompt Bar（IME 守卫）、Diff / Records 表格、洞察卡等 21 个，另有 AI 专属动效（思考呼吸、流式前沿、工具进度、在场感）。
-- **自检脚本**：`npm run check` 用 Playwright 打开 demo 的 6 个主题，检查 JS 错误、外部请求、阴影裁切（clip-audit `cut = 0`）、字号白名单（12 / 13 / 14 / 20）、令牌对比度，以及英文模式下的未翻译文本。
+- **OLED / HC monochrome**: the light default is pure-white high-contrast `hc` and the dark default is pure-black `oled`. `oled-hc`, `paper`, `white` and `dark` are also available. Colour doesn't carry hierarchy: the only hue is a functional red, and emphasis comes from inversion. Contrast targets are derived from APCA + WCAG and verified by script.
+- **Spring motion**: 8 presets (press / snap / glide / settle / pop / sheet / fling / breathe), defined Apple-style by duration + bounce. A closed-form solver generates CSS `linear()`. Motion is interruptible, uses asymmetric enter/exit and respects reduced motion.
+- **Chinese typography**: Geist + ANUI Sans SC (a Noto Sans SC subset) + Geist Mono, with `text-autospace`, `text-spacing-trim`, `line-break: strict`, and weight compensation for dark and high-contrast themes.
+- **AI-native components**: 21 components, including thinking traces, streamed answers, tool-call chips, approval cards, task rows, a Prompt Bar (with an IME guard), Diff / Records tables and insight cards. There's also AI-specific motion: thinking breath, streaming front, tool progress and presence.
+- **Self-check scripts**: `npm run check` uses Playwright to open the demo in all 6 themes (plus English runs). It checks for JS errors, external requests, clipped shadows (clip-audit `cut = 0`), the font-size whitelist (12 / 13 / 14 / 20), token contrast and untranslated text in English mode.
 
-## 安装到 Codex
+## Install in Codex
 
 ```bash
-# 用户级（所有项目可用）
-npx degit yamyyyyy/ai-native-ui-skill/skills/anui ~/.agents/skills/anui
+# User-level (all projects)
+npx degit raylee-ai/ai-native-ui-skill/skills/anui ~/.agents/skills/anui
 
-# 或项目级
-npx degit yamyyyyy/ai-native-ui-skill/skills/anui .agents/skills/anui
+# Or project-level
+npx degit raylee-ai/ai-native-ui-skill/skills/anui .agents/skills/anui
 ```
 
-然后把 [`AGENTS.md`](AGENTS.md) 里的片段粘到你项目根目录的 `AGENTS.md`，让 Codex 在做 UI 前先读 `SKILL.md`。
+Then paste the snippet from [`AGENTS.md`](AGENTS.md) into the `AGENTS.md` at your project root, so Codex reads `SKILL.md` before doing UI work.
 
-> 目录名应与 `SKILL.md` frontmatter 的 `name: anui` 一致。
+> The directory name should match `name: anui` in the `SKILL.md` frontmatter.
 
-## 快速开始
+## Quick start
 
-- **看效果**：直接用浏览器打开 `demo/index.html`（离线、无外部请求）。`?theme=hc|oled|oled-hc|paper|white|dark` 切主题，`?rm` 模拟减少动效；`?lang=en`（或顶部 **EN / 中文** 按钮）切换英文界面，默认中文并记住选择。
-- **在项目里用**：对 Codex 说“按 anui skill 给这个聊天面板做一个审批卡”。Skill 会按 `SKILL.md` 的路由表加载 `references/tokens.md`、`components.md`、`motion-advanced.md` 等。
-- **只要令牌**：照抄 `demo/src/app.css` 的主题块和 `@theme` 映射（说明见 `references/tokens.md`）。
+- **See it**: open `demo/index.html` in a browser (offline, no external requests).
+  - `?theme=hc|oled|oled-hc|paper|white|dark` switches theme and `?rm` simulates reduced motion.
+  - `?lang=en` (or the **EN / 中文** button at the top) switches the UI to English. The default is Chinese and the choice is remembered.
+- **Use it in a project**: tell Codex "use the anui skill to build an approval card for this chat panel". The skill loads `references/tokens.md`, `components.md`, `motion-advanced.md` and so on via the routing table in `SKILL.md`.
+- **Tokens only**: copy the theme blocks and the `@theme` mapping from `demo/src/app.css` (explained in `references/tokens.md`).
 
-## 目录结构
+## Languages
+
+- `SKILL.md` is English-first, with the Chinese typography notes kept in Chinese. `AGENTS.md`, `CHANGELOG.md` and `CONTRIBUTING.md` are bilingual.
+- `references/*.md` (Chinese) are canonical. `references/en/*.md` are full English translations with matching headings. If the two disagree, the Chinese file wins.
+- The demo's Chinese strings are the source of truth. `demo/i18n-en.js` maps them to English and `demo/i18n.js` applies them at runtime.
+
+## Structure
 
 ```text
-SKILL.md                 Skill 入口（name: anui）与按任务路由表
-AGENTS.md                粘贴到项目 AGENTS.md 的片段
+SKILL.md                 Skill entry point (name: anui) and per-task routing table
+AGENTS.md                Snippet to paste into a project's AGENTS.md
 references/
-  tokens.md              ANUI 令牌（主题、CSS 变量、Tailwind/shadcn 映射）
-  monochrome.md          黑白进阶：层级、材质、暗岛、对比度、中文排版
-  motion-advanced.md     弹簧预设、手势、AI 动效、光效、音效、性能
-  components.md          21 个组件规格
-  craft-rules.md         工艺规则：阴影裁切、IME、滚动跟随……
-  acceptance.md          交付验收清单
-  sources.md             来源与证据等级
-  en/                    以上文件的英文译本（以中文为准）
+  tokens.md              ANUI tokens (themes, CSS variables, Tailwind/shadcn mapping)
+  monochrome.md          Advanced monochrome: hierarchy, material, dark islands, contrast, Chinese typography
+  motion-advanced.md     Spring presets, gestures, AI motion, light effects, sound, performance
+  components.md          Specs for 21 components
+  craft-rules.md         Craft rules: shadow clipping, IME, scroll-follow…
+  acceptance.md          Delivery acceptance checklist
+  sources.md             Sources and evidence levels
+  en/                    English translations of the above (Chinese is canonical)
 scripts/
-  check.mjs              一键自检（Playwright）
-  perf.mjs               帧时序采样
-  clip-audit.js          阴影裁切审计（来自 desktop-agent-ui，MIT）
-  contrast.py            APCA + WCAG 对比度
-demo/                    单页演示（index.html、spring.js、presets.js、motion.*、i18n.js、i18n-en.js、assets/）
-docs/media/              README 用的动图与截图
+  check.mjs              One-shot self-check (Playwright)
+  perf.mjs               Frame-timing sampler
+  clip-audit.js          Shadow-clipping audit (from desktop-agent-ui, MIT)
+  contrast.py            APCA + WCAG contrast
+demo/                    Single-page demo (index.html, spring.js, presets.js, motion.*, i18n.js, i18n-en.js, assets/)
+docs/media/              GIFs and screenshots for the README
 ```
 
-## 验证脚本
+## Verification scripts
 
-在**仓库根目录**运行（报告写入 `skills/anui/reports/`）：
+Run from the **repo root** (reports go to `skills/anui/reports/`):
 
 ```bash
 npm install
-npm run browsers          # 下载 Chromium；已有浏览器可改用 CHROME_PATH=/path/to/chrome
-npm run check             # 6 个主题 + 英文界面检查，报告写入 reports/
-npm run perf              # 可选：脚本化交互的帧时序 → reports/perf.json
-npm run build:css         # 修改 demo/src/app.css 后重建 Tailwind
+npm run browsers          # downloads Chromium; or use CHROME_PATH=/path/to/chrome
+npm run check             # all 6 themes + English runs; reports go to reports/
+npm run perf              # optional: frame timing for scripted interactions → reports/perf.json
+npm run build:css         # rebuild Tailwind after editing demo/src/app.css
 ```
 
-`check` 需要 Python 3 运行 `scripts/contrast.py`；环境变量 `THEMES=hc,oled` 可只测部分主题，`EN_THEMES=hc,oled`（默认；`none` 跳过）选择英文检查的主题，`SHOTS=1` 会额外截图。
+`check` needs Python 3 for `scripts/contrast.py`. Use `THEMES=hc,oled` to test only some themes, `EN_THEMES=hc,oled` (default; `none` to skip) to pick the English runs, and `SHOTS=1` to save screenshots too.
 
-## 致谢（Inspired by / built upon）
+## Credits (inspired by / built upon)
 
-- [beautiful-ui](https://github.com/slev12397/beautiful-ui)（[beautifului.dev](https://beautifului.dev)）— MIT，© 2026 Shane Levine。组件解剖与尺寸的灵感来源；本仓库不包含其源码、图片或示例内容。
-- [desktop-agent-ui](https://github.com/Ludi-Herry/desktop-agent-ui) — MIT，© 2026 Desktop Agent UI Contributors。工艺规则来源，`scripts/clip-audit.js` 原样复制。
-- 字体 Geist / Geist Mono（OFL 1.1）与 Noto Sans SC（OFL 1.1，子集改名为 ANUI Sans SC）。
+- [beautiful-ui](https://github.com/slev12397/beautiful-ui) ([beautifului.dev](https://beautifului.dev)) — MIT, © 2026 Shane Levine. It inspired the component anatomy and sizing; this repo contains none of its source, images or sample content.
+- [desktop-agent-ui](https://github.com/Ludi-Herry/desktop-agent-ui) — MIT, © 2026 Desktop Agent UI Contributors. It's the source of the craft rules, and `scripts/clip-audit.js` is copied verbatim.
+- Fonts: Geist / Geist Mono (OFL 1.1) and Noto Sans SC (OFL 1.1; the subset is renamed ANUI Sans SC).
 
-详见 [`THIRD_PARTY_LICENSES.md`](../../THIRD_PARTY_LICENSES.md) 与 [`NOTICE`](../../NOTICE)。本项目以 [MIT](../../LICENSE) 发布。
-
-## 语言
-
-- `SKILL.md` 以英文为主，中文排版要点保留中文；`AGENTS.md`、`CHANGELOG.md`、`CONTRIBUTING.md` 双语。
-- `references/*.md`（中文）为准，`references/en/*.md` 是标题一一对应的完整英译。
-- demo 以中文文案为源，`demo/i18n-en.js` 提供英文映射，`demo/i18n.js` 运行时替换。
-
-English documentation: [README.en.md](README.en.md).
+See [`THIRD_PARTY_LICENSES.md`](../../THIRD_PARTY_LICENSES.md) and [`NOTICE`](../../NOTICE). Released under the [MIT](../../LICENSE) licence.

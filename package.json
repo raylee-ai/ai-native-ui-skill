@@ -8,9 +8,9 @@
   "author": "yamyyyyy",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yamyyyyy/ai-native-ui-skill"
+    "url": "https://github.com/raylee-ai/ai-native-ui-skill"
   },
-  "homepage": "https://yamyyyyy.github.io/ai-native-ui-skill/",
+  "homepage": "https://raylee-ai.github.io/ai-native-ui-skill/",
   "scripts": {
     "check": "node skills/anui/scripts/check.mjs",
     "check:anui": "node skills/anui/scripts/check.mjs",
