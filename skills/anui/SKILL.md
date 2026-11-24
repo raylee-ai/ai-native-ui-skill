@@ -24,9 +24,11 @@ Each reference exists in Chinese (`references/*.md`, canonical) and English (`re
 | Motion: spring presets, gestures, AI motion, light effects, sound, performance, base curves | `motion-advanced.md` (implementation: `demo/spring.js`, `demo/presets.js`, `demo/motion.css`) |
 | Implement a component | `components.md` (that section) + the `motion-advanced.md` appendix |
 | Engineering pitfalls: shadow clipping, IME, scroll follow, split panes, truthful state | `craft-rules.md` |
-| Delivery acceptance | `acceptance.md` + `scripts/clip-audit.js`; this repo's self-check is `npm run check` |
+| Delivery acceptance | `acceptance.md` + `scripts/clip-audit.js`; ANUI maintainers run `npm run check` from the full repository root |
 | See it working | `demo/index.html` (offline; `?theme=hc\|oled\|oled-hc\|paper\|white\|dark`, `?rm` for reduced motion, `?lang=en` for English UI) |
 | Sources and evidence levels | `sources.md` |
+
+Resolve paths beginning with `references/`, `demo/` or `scripts/` from the installed skill directory. Commands such as `npm run check` and generated files under `reports/` describe development in the full ANUI repository. For a standalone project, use the acceptance checklist on the target UI.
 
 ## Default themes
 - **Light default `hc`** (pure white, pure black text). **Dark default `oled`** (pure black). They share radii, ring logic, weight steps and the same red.
@@ -34,7 +36,7 @@ Each reference exists in Chinese (`references/*.md`, canonical) and English (`re
 - With no user choice: OS dark → `oled` (`oled-hc` if `prefers-contrast: more` is also set); otherwise → `hc`.
 
 ## Workflow
-1. **Inspect the project.** Read `package.json`, global CSS and the component folders.
+1. **Inspect the project.** Read the target project’s global CSS, component folders and package manifest if present.
    - Existing design system (shadcn / AntD / own tokens): only map the tokens.md variables into it (tokens.md §8). **Never add a second component library.**
    - New project: default to React + Tailwind v4 + shadcn/Radix + `motion`.
 2. **Apply tokens.** Follow the theme blocks and `@theme` mapping in `demo/src/app.css` (tokens.md §3–§4).
@@ -44,7 +46,7 @@ Each reference exists in Chinese (`references/*.md`, canonical) and English (`re
    - Motion uses only the 8 spring presets in motion-advanced.md §2, or their CSS `linear()` versions.
 5. **Accept.** Run through acceptance.md.
    - For shadowed areas, run clip-audit (default / hover / expanded / end-of-animation) until `cut === 0`.
-   - `contrast.py` must pass completely.
+   - Verify the token pairs against the APCA and WCAG targets with the project’s contrast tools. The full ANUI repository automates this with `scripts/contrast.py`.
    - Screenshot `hc` and `oled`.
 
 ## Priority

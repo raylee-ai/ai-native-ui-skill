@@ -3,7 +3,10 @@
 
 Tick every item before delivery. Keep the screenshots or recordings and the clip-audit receipt.
 
-## 0. One-command self-check (this repo's demo; same for your page once you change the path)
+## 0. One-command self-check (full repository demo only)
+
+For a standalone install, use sections 1–3 on your own page. Verify APCA and WCAG contrast with your project’s tools.
+
 - [ ] `npm run check` is all green. For all 6 themes: no JS errors, no external network requests, clip-audit `cut = 0`, font sizes ⊂ {12, 13, 14, 20}, and everything in `reports/contrast.md` passes.
 
 ## 1. Visual (ANUI tokens)

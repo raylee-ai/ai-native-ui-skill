@@ -9,5 +9,5 @@
   - 动效只用 8 个弹簧预设，并尊重减少动效设置。
 - Hard rules: ≤4 font sizes and ≥12px; concentric radii; no "·" separators; no left colour-stripe cards; Enter-to-send has an IME guard; state comes from real events.
   - 硬性要求：字号 ≤4 种且 ≥12px；同心圆角；无 “·”；无左彩条卡片；Enter 发送带 IME 守卫；状态来自真实事件。
-- Before finishing a UI task, run through `references/acceptance.md`: run `scripts/clip-audit.js` (`cut === 0`) on shadowed areas, check contrast with `scripts/contrast.py`, and provide hc / oled screenshots.
-  - 交付前执行 acceptance.md：clip-audit `cut === 0`、contrast.py 校验、提供 hc / oled 截图。
+- Before finishing a UI task, run through `references/acceptance.md`: run `scripts/clip-audit.js` (`cut === 0`) on shadowed areas, verify APCA and WCAG contrast with your project’s tools, and provide hc / oled screenshots.
+  - 交付前执行 acceptance.md：clip-audit `cut === 0`、用项目工具校验 APCA 和 WCAG 对比度、提供 hc / oled 截图。
