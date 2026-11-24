@@ -25,13 +25,14 @@ Codex 从 `~/.agents/skills/<name>/`（用户级）或项目内 `.agents/skills/
 npx degit raylee-ai/ai-native-ui-skill/skills/anui ~/.agents/skills/anui     # 用户级
 npx degit raylee-ai/ai-native-ui-skill/skills/anui .agents/skills/anui       # 项目级
 
-# 方式二：git 稀疏检出（便于之后 git pull 更新）
+# 不使用 npx 的方式：从稀疏检出复制到新的用户级目录
 git clone --depth 1 --filter=blob:none --sparse https://github.com/raylee-ai/ai-native-ui-skill /tmp/ai-native-ui-skill
 git -C /tmp/ai-native-ui-skill sparse-checkout set skills/anui
-cp -R /tmp/ai-native-ui-skill/skills/anui ~/.agents/skills/anui
+mkdir -p ~/.agents/skills
+test ! -e ~/.agents/skills/anui && cp -R /tmp/ai-native-ui-skill/skills/anui ~/.agents/skills/anui
 ```
 
-然后按各 Skill README 的说明，把它的 `AGENTS.md` 片段（如 [`skills/anui/AGENTS.md`](skills/anui/AGENTS.md)）粘到你项目根目录的 `AGENTS.md`。
+选择一种安装范围。项目级命令在目标项目根目录运行。`npx` 仅用于下载。独立目录包含 Skill 指令、参考文档、许可与离线演示，使用时无需检出仓库，也无需 npm 依赖、Playwright 或 Python。把随包提供的 [AGENTS.md 配置片段](skills/anui/AGENTS.md) 粘贴到项目根目录的 `AGENTS.md`。
 
 ## 仓库结构
 
@@ -46,12 +47,22 @@ LICENSE  NOTICE  THIRD_PARTY_LICENSES.md  CONTRIBUTING.md  CHANGELOG.md
 
 ## 开发与自检
 
+以下命令在克隆的仓库根目录（含 `package.json`）运行。使用 Node.js 20 或更高版本及 npm。项目声明 Node ≥18，但锁定的 Playwright 和 Tailwind 工具要求 ≥20。对比度检查需要 Python 3（命令为 `python3`，也可用 `PYTHON` 指定解释器）；缺少解释器时脚本会将对比度标为跳过。
+
 ```bash
-npm install
-npm run browsers      # 或设置 CHROME_PATH
-npm run check         # ANUI：6 个主题 + 2 个英文运行
-npm run build:site    # 本地组装 Pages 站点到 _site/
+npm ci
+npx playwright install chromium
+npm run check
+npm run build:site
 ```
+
+按已提交的锁文件全新安装时使用 `npm ci`。新增或更新依赖时使用 `npm install`，并审查锁文件变化。若使用已有的兼容 Chromium，可把 `CHROME_PATH` 设为其可执行文件路径。
+
+用浏览器直接打开[本地演示](skills/anui/demo/index.html)，CSS、JavaScript 和字体都已随包提供。修改 `skills/anui/demo/src/app.css` 后运行 `npm run build:css`。
+
+默认自检覆盖 6 个中文主题及 2 次英文检查，将 `check.json`、`tokens.json` 和 Python 生成的 `contrast.md` 写入 `skills/anui/reports/`。用 `SHOTS=1 npm run check` 可将 `shot-*.png` 截图保存到同一目录。开发时可用 `THEMES=hc,oled` 选择中文检查主题，用 `EN_THEMES=hc,oled` 选择英文检查主题（`none` 跳过英文）。可选的 `npm run perf` 将 `perf.json` 写入该目录。
+
+`npm run build:site` 使用站点首页和各 Skill 的演示重新生成本地 Pages 输出目录 `_site/`。
 
 ## 新增 Skill
 

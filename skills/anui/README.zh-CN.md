@@ -1,6 +1,6 @@
 # ANUI — AI-Native UI Skill
 
-> 本 Skill 属于 [ai-native-ui-skill](../../README.zh-CN.md) 合集，位于 `skills/anui/`。
+> 本 Skill 属于 [ai-native-ui-skill](https://github.com/raylee-ai/ai-native-ui-skill/blob/main/README.zh-CN.md) 合集，位于 `skills/anui/`。
 
 **简体中文** · [English](README.md)
 
@@ -20,13 +20,13 @@
 
 ## 它是什么
 
-ANUI 是一套写给编码 Agent 读的设计系统。装进 Codex 后，Agent 在做聊天面板、Agent 工作台、工具调用流、审批卡时，会按这里的令牌、动效和工艺规则来实现，并用脚本自检。
+ANUI 是一套写给编码 Agent 读的设计系统。装进 Codex 后，Agent 在做聊天面板、Agent 工作台、工具调用流、审批卡时，会按这里的令牌、动效和工艺规则来实现，并按随包提供的验收清单检查结果。
 
 - **OLED / HC 单色**：浅色默认纯白高对比 `hc`，深色默认纯黑 `oled`，另有 `oled-hc`、`paper`、`white`、`dark`。颜色不承担层级，唯一的彩色是功能红；强调靠反色。对比度按 APCA + WCAG 反推并脚本校验。
 - **弹簧动效**：8 个预设（press / snap / glide / settle / pop / sheet / fling / breathe），用 Apple 式 duration + bounce 定义，闭式求解并生成 CSS `linear()`；可打断、进出不对称、尊重减少动效。
 - **中文排版**：Geist + ANUI Sans SC（Noto Sans SC 子集）+ Geist Mono；`text-autospace`、`text-spacing-trim`、`line-break: strict`，深色/高对比字重补偿。
 - **AI-native 组件**：思考轨迹、流式回答、工具调用 chip、审批卡、任务行、Prompt Bar（IME 守卫）、Diff / Records 表格、洞察卡等 21 个，另有 AI 专属动效（思考呼吸、流式前沿、工具进度、在场感）。
-- **自检脚本**：`npm run check` 用 Playwright 打开 demo 的 6 个主题，检查 JS 错误、外部请求、阴影裁切（clip-audit `cut = 0`）、字号白名单（12 / 13 / 14 / 20）、令牌对比度，以及英文模式下的未翻译文本。
+- **完整仓库自检**：`npm run check` 用 Playwright 打开 demo 的 6 个主题及英文界面，检查 JS 错误、外部请求、阴影裁切（clip-audit `cut = 0`）、字号白名单（12 / 13 / 14 / 20）、令牌对比度，以及英文模式下的未翻译文本。
 
 ## 安装到 Codex
 
@@ -37,6 +37,8 @@ npx degit raylee-ai/ai-native-ui-skill/skills/anui ~/.agents/skills/anui
 # 或项目级
 npx degit raylee-ai/ai-native-ui-skill/skills/anui .agents/skills/anui
 ```
+
+选择其中一条命令。项目级命令在目标项目根目录运行。下载后，只需这个目录即可使用 ANUI；也可以将整个 `skills/anui` 目录复制到上述任一位置。使用 Skill 和打开演示均无需 npm 依赖、Playwright 或 Python。
 
 然后把 [`AGENTS.md`](AGENTS.md) 里的片段粘到你项目根目录的 `AGENTS.md`，让 Codex 在做 UI 前先读 `SKILL.md`。
 
@@ -71,19 +73,9 @@ demo/                    单页演示（index.html、spring.js、presets.js、mo
 docs/media/              README 用的动图与截图
 ```
 
-## 验证脚本
+## 开发 ANUI
 
-在**仓库根目录**运行（报告写入 `skills/anui/reports/`）：
-
-```bash
-npm install
-npm run browsers          # 下载 Chromium；已有浏览器可改用 CHROME_PATH=/path/to/chrome
-npm run check             # 6 个主题 + 英文界面检查，报告写入 reports/
-npm run perf              # 可选：脚本化交互的帧时序 → reports/perf.json
-npm run build:css         # 修改 demo/src/app.css 后重建 Tailwind
-```
-
-`check` 需要 Python 3 运行 `scripts/contrast.py`；环境变量 `THEMES=hc,oled` 可只测部分主题，`EN_THEMES=hc,oled`（默认；`none` 跳过）选择英文检查的主题，`SHOTS=1` 会额外截图。
+如需修改 Demo、重新构建 CSS 或运行仓库的自动自检，请参阅[完整仓库开发说明](https://github.com/raylee-ai/ai-native-ui-skill/blob/main/README.zh-CN.md#开发与自检)。
 
 ## 致谢（Inspired by / built upon）
 
@@ -91,11 +83,11 @@ npm run build:css         # 修改 demo/src/app.css 后重建 Tailwind
 - [desktop-agent-ui](https://github.com/Ludi-Herry/desktop-agent-ui) — MIT，© 2026 Desktop Agent UI Contributors。工艺规则来源，`scripts/clip-audit.js` 原样复制。
 - 字体 Geist / Geist Mono（OFL 1.1）与 Noto Sans SC（OFL 1.1，子集改名为 ANUI Sans SC）。
 
-详见 [`THIRD_PARTY_LICENSES.md`](../../THIRD_PARTY_LICENSES.md) 与 [`NOTICE`](../../NOTICE)。本项目以 [MIT](../../LICENSE) 发布。
+详见 [`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md) 与 [`NOTICE`](NOTICE)。本项目以 [MIT](LICENSE) 发布。
 
 ## 语言
 
-- `SKILL.md` 以英文为主，中文排版要点保留中文；`AGENTS.md`、`CHANGELOG.md`、`CONTRIBUTING.md` 双语。
+- `SKILL.md` 以英文为主，中文排版要点保留中文；随包的 `AGENTS.md` 片段为双语。
 - `references/*.md`（中文）为准，`references/en/*.md` 是标题一一对应的完整英译。
 - demo 以中文文案为源，`demo/i18n-en.js` 提供英文映射，`demo/i18n.js` 运行时替换。
 

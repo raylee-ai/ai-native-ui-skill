@@ -1,6 +1,6 @@
 # ANUI — AI-Native UI Skill
 
-> This skill is part of the [ai-native-ui-skill](../../README.md) collection and lives in `skills/anui/`.
+> This skill is part of the [ai-native-ui-skill](https://github.com/raylee-ai/ai-native-ui-skill) collection and lives in `skills/anui/`.
 
 **English** · [简体中文](README.zh-CN.md)
 
@@ -20,13 +20,13 @@
 
 ## What it is
 
-ANUI is a design system written for coding agents to read. Once installed in Codex, the agent uses its tokens, motion and craft rules when it builds chat panels, agent workspaces, tool-call streams and approval cards, then checks its own work with scripts.
+ANUI is a design system written for coding agents to read. Once installed in Codex, the agent uses its tokens, motion and craft rules when it builds chat panels, agent workspaces, tool-call streams and approval cards, then reviews the result with the bundled acceptance checklist.
 
 - **OLED / HC monochrome**: the light default is pure-white high-contrast `hc` and the dark default is pure-black `oled`. `oled-hc`, `paper`, `white` and `dark` are also available. Colour doesn't carry hierarchy: the only hue is a functional red, and emphasis comes from inversion. Contrast targets are derived from APCA + WCAG and verified by script.
 - **Spring motion**: 8 presets (press / snap / glide / settle / pop / sheet / fling / breathe), defined Apple-style by duration + bounce. A closed-form solver generates CSS `linear()`. Motion is interruptible, uses asymmetric enter/exit and respects reduced motion.
 - **Chinese typography**: Geist + ANUI Sans SC (a Noto Sans SC subset) + Geist Mono, with `text-autospace`, `text-spacing-trim`, `line-break: strict`, and weight compensation for dark and high-contrast themes.
 - **AI-native components**: 21 components, including thinking traces, streamed answers, tool-call chips, approval cards, task rows, a Prompt Bar (with an IME guard), Diff / Records tables and insight cards. There's also AI-specific motion: thinking breath, streaming front, tool progress and presence.
-- **Self-check scripts**: `npm run check` uses Playwright to open the demo in all 6 themes (plus English runs). It checks for JS errors, external requests, clipped shadows (clip-audit `cut = 0`), the font-size whitelist (12 / 13 / 14 / 20), token contrast and untranslated text in English mode.
+- **Full repository self-check**: `npm run check` uses Playwright to open the demo in all 6 themes (plus English runs). It checks for JS errors, external requests, clipped shadows (clip-audit `cut = 0`), the font-size whitelist (12 / 13 / 14 / 20), token contrast and untranslated text in English mode.
 
 ## Install in Codex
 
@@ -37,6 +37,8 @@ npx degit raylee-ai/ai-native-ui-skill/skills/anui ~/.agents/skills/anui
 # Or project-level
 npx degit raylee-ai/ai-native-ui-skill/skills/anui .agents/skills/anui
 ```
+
+Choose one command. Run the project-level command from your project root. After download, ANUI works from this directory alone. You can also copy the entire `skills/anui` folder to either destination. Using the Skill and opening its demo require no npm dependencies, Playwright or Python.
 
 Then paste the snippet from [`AGENTS.md`](AGENTS.md) into the `AGENTS.md` at your project root, so Codex reads `SKILL.md` before doing UI work.
 
@@ -52,7 +54,7 @@ Then paste the snippet from [`AGENTS.md`](AGENTS.md) into the `AGENTS.md` at you
 
 ## Languages
 
-- `SKILL.md` is English-first, with the Chinese typography notes kept in Chinese. `AGENTS.md`, `CHANGELOG.md` and `CONTRIBUTING.md` are bilingual.
+- `SKILL.md` is English-first, with the Chinese typography notes kept in Chinese. The bundled `AGENTS.md` snippet is bilingual.
 - `references/*.md` (Chinese) are canonical. `references/en/*.md` are full English translations with matching headings. If the two disagree, the Chinese file wins.
 - The demo's Chinese strings are the source of truth. `demo/i18n-en.js` maps them to English and `demo/i18n.js` applies them at runtime.
 
@@ -79,19 +81,9 @@ demo/                    Single-page demo (index.html, spring.js, presets.js, mo
 docs/media/              GIFs and screenshots for the README
 ```
 
-## Verification scripts
+## Developing ANUI
 
-Run from the **repo root** (reports go to `skills/anui/reports/`):
-
-```bash
-npm install
-npm run browsers          # downloads Chromium; or use CHROME_PATH=/path/to/chrome
-npm run check             # all 6 themes + English runs; reports go to reports/
-npm run perf              # optional: frame timing for scripted interactions → reports/perf.json
-npm run build:css         # rebuild Tailwind after editing demo/src/app.css
-```
-
-`check` needs Python 3 for `scripts/contrast.py`. Use `THEMES=hc,oled` to test only some themes, `EN_THEMES=hc,oled` (default; `none` to skip) to pick the English runs, and `SHOTS=1` to save screenshots too.
+To change the demo, rebuild CSS or run the repository’s automated checks, follow the [full repository development instructions](https://github.com/raylee-ai/ai-native-ui-skill#development-and-self-checks).
 
 ## Credits (inspired by / built upon)
 
@@ -99,4 +91,4 @@ npm run build:css         # rebuild Tailwind after editing demo/src/app.css
 - [desktop-agent-ui](https://github.com/Ludi-Herry/desktop-agent-ui) — MIT, © 2026 Desktop Agent UI Contributors. It's the source of the craft rules, and `scripts/clip-audit.js` is copied verbatim.
 - Fonts: Geist / Geist Mono (OFL 1.1) and Noto Sans SC (OFL 1.1; the subset is renamed ANUI Sans SC).
 
-See [`THIRD_PARTY_LICENSES.md`](../../THIRD_PARTY_LICENSES.md) and [`NOTICE`](../../NOTICE). Released under the [MIT](../../LICENSE) licence.
+See [`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md) and [`NOTICE`](NOTICE). Released under the [MIT](LICENSE) licence.

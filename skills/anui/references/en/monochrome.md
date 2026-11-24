@@ -194,6 +194,6 @@
 - `clip-audit.js` must report cut = 0 in all 6 themes (run automatically by `npm run check`).
 - IME guard: block Enter within 500ms after `compositionend`, and check both `isComposing` and keyCode 229.
 - Additional acceptance items:
-  - Run `scripts/contrast.py` to check APCA and WCAG for every token pair.
-  - Screenshot each of the 6 themes (`SHOTS=1 npm run check`).
+  - Check APCA and WCAG for every token pair with your project’s tools. The full repository uses `scripts/contrast.py`.
+  - Screenshot each of the 6 themes (for the full repository demo, `SHOTS=1 npm run check`).
   - Derived variables inside dark islands must be correct: the primary button in an island is white with black text.

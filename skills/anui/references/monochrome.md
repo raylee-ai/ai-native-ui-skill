@@ -152,6 +152,6 @@
 - `clip-audit.js` 在 6 个主题下都要求 cut = 0（`npm run check` 自动执行）。
 - IME 防误发：`compositionend` 之后 500ms 内的 Enter 拦截，同时检查 `isComposing` 和 keyCode 229。
 - 新增的验收项：
-  - 运行 `scripts/contrast.py`，检查所有令牌组合的 APCA 和 WCAG 是否达标。
-  - 在 6 个主题下逐一截图（`SHOTS=1 npm run check`）。
+  - 用项目工具检查所有令牌组合的 APCA 和 WCAG 是否达标。完整仓库用 `scripts/contrast.py` 执行此检查。
+  - 在 6 个主题下逐一截图（完整仓库 Demo 使用 `SHOTS=1 npm run check`）。
   - 暗岛内的派生变量要求正确：岛内主按钮应为白底黑字。
